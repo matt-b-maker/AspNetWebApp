@@ -1,0 +1,42 @@
+﻿Folders:
+Properties: Contains launchSettings.json, which determines how the page is launched. Currently, the debug launch profile is set to IIS express, which just launches the thing in the browser using a local token? Maybe, I think?
+			Probably more on this to come. 
+
+wwwroot: Contains all css and js files for the project. I think this is where I'll need to implement the react library if that's something I choose to do
+
+Controllers: Contains page and element controllers. The default was "HomeController" because the only page that the template comes with is a home page. Controllers deal with the logic between Elements and Views
+
+Models: Contains all data manipulation classes/models. Table models will be created to access databases, then share that data out to controllers/views as necessary
+
+Views: Contains all cshtml files to determine what displays on the screen for the user. Default page was home page, but an an important folder to keep in mind is the:
+
+	Shared (Inside views): Mostly partial views? Contains pages that are shared with other pages throughout the application. In this case, _Layout is the foreground header and footer that appear throughout navigation. It is defined 
+						   in the _ViewStart file
+						   Different layout pages can be used for different pages as they're added to the project
+
+appsettings.json: This is where project secrets will be stored (i.e. Database credentials, api keys, etc.)
+				  In this example project, a block called "ConnectionStrings" is added to the appsettings.json file to be retrieved later by the Category model, then a 
+				  folder called "Data" is created to store the ApllicationDbContext model (inherits DbContext from Entity Framework Core).
+				  This data can be retrieved using the builder.configuration... built in methods
+
+Program.cs: Configures the services that the application will use and then launches the thing. Tying the database models to their corresponding connection strings is done here. 
+			Note: All configs need to happen before var "app = builder.Build();" because, well.. you know. It needs to know everything before it builds, you COCK
+
+
+
+Packages added: 
+
+*** Install Microsoft.EntityFrameworkCore.Tools
+	Tools > Nuget Package Manager > Package Manager Console
+	'add-migration <Name of Migration>'
+	This will create a folder called "Migrations" and add two files to it
+	This is ultimately what creates/modifies the table the the model is going for by taking care of all queries and shit. It's pretty sweet
+	'update-database' will update everything if the model changes
+
+
+Tips:
+1) When creating a controller, it is a requirement to append "Controller" onto whatever you name it. For instance: For a controller called Category, the controller name will 
+be CategoryController
+2) '@' is the Activate symbol for using c# inside cshtml files. Use it before implementing any code or built in variables
+3) Name partial views with an underscore at the front (i.e. "_Layout")
+4) PUT STUFF INSIDE DIVS!!!

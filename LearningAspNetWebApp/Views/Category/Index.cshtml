@@ -1,0 +1,89 @@
+﻿@using Microsoft.CodeAnalysis.VisualBasic.Syntax
+@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Scripts
+{
+    <script>
+        function hideOrUnhide() {
+            var hiddenElement = window.$('#HiddenName');
+            if (hiddenElement === 'undefined') return;
+            hiddenElement.hasClass("visually-hidden") ? hiddenElement.removeClass("visually-hidden") : hiddenElement.addClass("visually-hidden");
+            console.log("Made it");
+        }
+
+        function hide() {
+            var hiddenElement = window.$('#HiddenName');
+            if (hiddenElement === 'undefined') return;
+            hiddenElement.hasClass("visually-hidden") ? hiddenElement.removeClass("visually-hidden") : hiddenElement.addClass("visually-hidden");
+            console.log("Made it");
+        }
+    </script>
+}
+
+<h1>Index</h1>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary text-start">Category List</h2>
+        </div>
+    </div>
+</div>
+<table class="table table-bordered table-striped" style="width: 100%">
+    <thead>
+    <tr>
+        <th>
+            Category
+        </th>
+        <th>
+            Display Order
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var obj in Model)
+    {
+        <tr>
+            <td class="w-auto text-center align-middle">
+                @obj.Id
+            </td>
+            @if (@obj.Name.Trim() == "Dogs")
+            {
+                <td id="HiddenName" width="50%" class="align-middle ms-5 visually-hidden">
+                    @obj.Name
+                </td>
+            }
+            else
+            {
+                <td width="50%" class="align-middle ms-5">
+                    @obj.Name
+                </td>
+            }
+            <td width="30%" class="align-middle">
+                @obj.DisplayOrder
+            </td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-primary w-auto" asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id">
+                        <i class="bi bi-pencil-square"></i> &nbsp; Edit
+                    </a>
+                    <br/>
+                    <a class="btn btn-warning w-auto" asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id">
+                        <i class="bi bi-trash3-fill"></i> &nbsp; Delete
+                    </a>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<br/>
+<br/>
+<div class="text-center">
+    <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle-fill"></i> &nbsp; Create New Category
+    </a>
+    <a class="btn btn-primary" onclick="hide()"></a>
+</div>
